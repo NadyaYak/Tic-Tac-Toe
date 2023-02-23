@@ -1,0 +1,33 @@
+.container{
+    /*border: solid black;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 90px;
+}
+.box{
+    /*border: solid salmon;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    
+    
+
+}
+.row{
+display: flex;
+
+
+}
+.tile{
+    width:100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+.actionreset{
+    margin-top: 20px;
+}
