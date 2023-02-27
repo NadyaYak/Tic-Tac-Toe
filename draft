@@ -1,0 +1,78 @@
+const tiles = document.querySelectorAll(".tile");
+const resetButton = document.querySelector(".reset");
+const msg = document.querySelector('#msg');
+
+let currentPlayer = "X";
+let gameBoard = ["", "", "", "", "", "", "", "", ""];
+
+tiles.forEach((tile, index) => {
+  tile.addEventListener("click", () => {
+    if (tile.innerHTML === "") {
+      tile.innerHTML = currentPlayer;
+      gameBoard[index] = currentPlayer;
+      if (checkWin()) {
+        alert(`${currentPlayer} wins!`);
+        reset();
+      } else if (checkDraw()) {
+        alert("Draw!");
+        reset();
+      } else {
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+      }
+    }
+  });
+});
+
+resetButton.addEventListener("click", () => {
+  reset();
+});
+
+function checkWin() {
+  const winCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  return winCombos.some((combo) => {
+    return (
+      gameBoard[combo[0]] === currentPlayer &&
+      gameBoard[combo[1]] === currentPlayer &&
+      gameBoard[combo[2]] === currentPlayer
+    );
+  });
+}
+
+function checkDraw() {
+  return gameBoard.every((tile) => tile !== "");
+}
+
+function reset() {
+  tiles.forEach((tile) => {
+    tile.innerHTML = "";
+  });
+  gameBoard = ["", "", "", "", "", "", "", "", ""];
+  currentPlayer = "X";
+}
+
+function handleResetClick() {
+  currentPlayer = 'X';
+  gameBoard = true;
+  movesPlayed = 0;
+
+  msg.innerHTML = '';
+  resetButton.style.display = 'none';
+
+  tiles.forEach(tile => {
+    tile.innerHTML = '';
+    tile.classList.remove('X', 'O', 'win');
+  });
+}
+
+tiles.forEach(tile => tile.addEventListener('click', () => handleTileClick(tile)));
+resetButton.addEventListener('click', handleResetClick);
